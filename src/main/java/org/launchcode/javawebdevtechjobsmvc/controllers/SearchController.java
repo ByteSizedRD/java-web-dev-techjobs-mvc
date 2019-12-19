@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.launchcode.javawebdevtechjobsmvc.controllers.ListController.columnChoices;
@@ -25,4 +26,18 @@ public class SearchController {
 
     // TODO #3 - Create a handler to process a search request and render the updated search view.
 
+    @RequestMapping(value = "results", method = {RequestMethod.GET, RequestMethod.POST})
+        public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
+        ArrayList<Job> jobs;
+        if(searchType.toLowerCase().equals("all")) {
+            jobs = JobData.findAll();
+            model.addAllAttributes("title", "All Jobs");
+        } else {
+            jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+            model.addAttribute("title", "Jobs with " + columnChoices.get(searchType) + ": " + columnChoices.get(searchTerm));
+        }
+        model.addAttribute("jobs", jobs);
+
+        return "search"
+    }
 }
