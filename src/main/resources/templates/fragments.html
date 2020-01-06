@@ -29,6 +29,24 @@
 
 </body>
 
+// Adding fragment for list-jobs & search.html table of results
+<div th:fragment = "search-result-table">
+    <table class = "job-listing" th:each ="job: ${jobs}">
+
+        <tr> <td th:text="${'ID: ' + job.id}"></td></tr>
+
+        <tr> <td th:text="${'Name: ' + job.name}"></td></tr>
+
+        <tr>  <td th:text="${'Employer: ' + job.employer}"></td></tr>
+
+        <tr>  <td th:text="${'Location' + job.location}"></td></tr>
+
+        <tr>  <td th:text="${'Postion Type: ' + job.positionType}"></td></tr>
+
+        <tr>   <td th:text="${'Skill: ' + job.coreCompetency}"></td></tr>
+
+    </table>
+
 
 </div>
 </html>

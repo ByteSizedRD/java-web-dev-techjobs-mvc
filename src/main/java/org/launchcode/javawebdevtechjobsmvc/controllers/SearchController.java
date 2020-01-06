@@ -29,15 +29,15 @@ public class SearchController {
     @RequestMapping(value = "results", method = {RequestMethod.GET, RequestMethod.POST})
         public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
         ArrayList<Job> jobs;
-        if(searchType.toLowerCase().equals("all")) {
+        if(searchType.toLowerCase().equals("all") || searchTerm.toLowerCase().equals("")) {
             jobs = JobData.findAll();
-            model.addAllAttributes("title", "All Jobs");
+            model.addAttribute("title", "All Jobs");
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
             model.addAttribute("title", "Jobs with " + columnChoices.get(searchType) + ": " + columnChoices.get(searchTerm));
         }
         model.addAttribute("jobs", jobs);
 
-        return "search"
+        return "search";
     }
 }
